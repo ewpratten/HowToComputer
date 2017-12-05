@@ -1,6 +1,6 @@
 # From Click To Bit
 ## How computers work at a low level
-#### By: ewpratten
+#### By: [ewpratten](https://github.com/Ewpratten)
 #### [Credits](https://github.com/Ewpratten/HowToComputer/blob/master/CONTRIBUTORS.md)
 
 ## Introduction
@@ -31,3 +31,28 @@ print "Hello, world"
 What this does is as follows:
 <br><br>
 The first line, `#!/usr/bin/env python` is called a shebang. it is to tell the system what to use to execute this script. In this case the shebang is pointing to python.
+<br><br>
+The second line is quite self-descriptive. In python, the `print()` function displays anything that is in the brackets in the terminal. In this case, the brackets contain the string `Hello, world!`. When printing text, it needs to be stored in a string. To store test in a string in python, just add double quotes around it. For example ` "Hello, world!"`.
+
+### x86-64 Assembly
+
+This is how to print out *Hello, world!* in x86-64:
+
+```assembly
+section	.text
+	global _start   ;must be declared for using gcc
+_start:             ;tell linker entry point
+	mov	edx, len    ;message length
+	mov	ecx, msg    ;message to write
+	mov	ebx, 1	    ;file descriptor (stdout)
+	mov	eax, 4	    ;system call number (sys_write)
+	int	0x80        ;call kernel
+	mov	eax, 1	    ;system call number (sys_exit)
+	int	0x80        ;call kernel
+
+section	.data
+
+msg	db	'Hello, world!',0xa	;The string
+len	equ	$ - msg			;length of our dear string
+```
+The text after the semicolon is a comment. Comments are used to explain what the line of instructions does.
