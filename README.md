@@ -10,9 +10,9 @@ This is partially a school project but mostly for me to learn about how computer
 The repo is organised in to folders for each project or tutorial.
 <br>
 <br>
-The examples will be shown at three levels. First, an example of what the user sees (ex. a window with a button). I will be calling this the ** User ** level. Second, an example of the underlying code in a high level, interpreted language. I have chosen python because of it's simplicity and flexibility. Third, an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code) specifically, x86-64 assembly. I chose assembly because is a good way of showing what is happening on the computer at the lowest level.
+The examples will be shown at three levels. First, an example of what the user sees (ex. a window with a button). I will be calling this the **User** level. Second, an example of the underlying code in a high level, interpreted language. I have chosen python because of it's simplicity and flexibility. Third, an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code) specifically, x86-64 assembly. I chose assembly because is a good way of showing what is happening on the computer at the lowest level.
 <br><br>
-An important detail to note is that all of the tutorials are designed for a **linux** system running on a ** x86-64 ** cpu. The examples may work on other operating systems and architectures but have ** not ** been tested
+An important detail to note is that all of the tutorials are designed for a **linux** system running on a **x86-64** cpu. The examples may work on other operating systems and architectures but have **not** been tested
 ## Hello world
 Although these tutorials should start from the simplest example first, it is tradition to print the phrase **Hello, world!** as the first thing when learning a new programming language.
 <br><br>
