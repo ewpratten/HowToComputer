@@ -32,16 +32,16 @@ What this does is as follows:
 <br><br>
 The first line, `#!/usr/bin/env python` is called a shebang. it is to tell the system what to use to execute this script. In this case the shebang is pointing to python.
 <br><br>
-The second line is quite self-descriptive. In python, the `print()` function displays anything that is in the brackets in the terminal. In this case, the brackets contain the string `Hello, world!`. When printing text, it needs to be stored in a string. To store test in a string in python, just add double quotes around it. For example ` "Hello, world!"`.
-
+The second line is quite self-descriptive. In python, the `print()` function displays anything that is in the brackets in the terminal. In this case, the brackets contain the string `Hello, world!`. When printing text, it needs to be stored in a string. To store test in a string in python, just add double quotes around it. For example ` "Hello, world!"`. Simple! Right?
+ Now let's look at what the computer is actually doing.
 ### x86-64 Assembly
 
 This is how to print out *Hello, world!* in x86-64:
 
 ```assembly
 section	.text
-	global _start   ;must be declared for using gcc
-_start:             ;tell linker entry point
+	global _start       ;must be declared for using gcc
+_start:                     ;tell linker entry point
 	mov	edx, len    ;message length
 	mov	ecx, msg    ;message to write
 	mov	ebx, 1	    ;file descriptor (stdout)
@@ -52,7 +52,21 @@ _start:             ;tell linker entry point
 
 section	.data
 
-msg	db	'Hello, world!',0xa	;The string
-len	equ	$ - msg			;length of our dear string
+msg	db	'Hello, world!',0xa	;the string
+len	equ	$ - msg			;length of the string
 ```
 The text after the semicolon is a comment. Comments are used to explain what the line of instructions does.
+<br><br>
+Let's start at the first line.
+
+# TODO: ADD INFO LATER
+
+## Simple Math
+
+Moving on to something simpler, it's time for some simple math. The end result of this should be printing the results of the following math problems to the terminal. These are the problems to solve: ** 1+1, 2\*4, 8/2, 3-2**. fairly simple, lets look at how this works on three different levels.
+
+### User
+This *User* example is not that interesting. All you will see is the following:
+##### TODO: add image
+
+### Python
