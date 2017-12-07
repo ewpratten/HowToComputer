@@ -14,6 +14,7 @@ The examples will be shown at three levels. First, an example of what the user s
 <br><br>
 An important detail to note is that all of the tutorials are designed for a **linux** system running on a **x86-64** cpu. The examples may work on other operating systems and architectures but have **not** been tested
 ## Hello world
+
 Although these tutorials should start from the simplest example first, it is tradition to print the phrase **Hello, world!** as the first thing when learning a new programming language.
 <br><br>
 ### User
@@ -55,6 +56,10 @@ section	.data
 msg	db	'Hello, world!',0xa	;the string
 len	equ	$ - msg			;length of the string
 ```
+Due to the fact that assembly can require special execution commands, I will provide the command I use for each example.
+```bash
+nasm -f elf *.asm; ld -m elf_i386 -s -o demo *.o && demo
+```
 The text after the semicolon is a comment. Comments are used to explain what the line of instructions does.
 <br><br>
 Let's start at the first line.
@@ -63,10 +68,14 @@ Let's start at the first line.
 
 ## Simple Math
 
-Moving on to something simpler, it's time for some simple math. The end result of this should be printing the results of the following math problems to the terminal. These are the problems to solve: ** 1+1, 2\*4, 8/2, 3-2**. fairly simple, lets look at how this works on three different levels.
+Moving on to something simpler, it's time for some simple math. The end result of this should be printing the results of the following math problems to the terminal. These are the problems to solve: **1+1, 2\*4, 8/2, 3-2**. fairly simple, lets look at how this works on three different levels.
 
 ### User
 This *User* example is not that interesting. All you will see is the following:
 ##### TODO: add image
 
 ### Python
+
+### x86-64 Assembly
+
+## How A Computer Works
