@@ -1,7 +1,7 @@
 # From Click To Bit
 ## How computers work at a low level
-#### By: [ewpratten](https://github.com/Ewpratten)
-#### [Credits](https://github.com/Ewpratten/HowToComputer/blob/master/CONTRIBUTORS.md)
+#### By: [Evan Pratten](https://keybase.io/ewpratten)
+#### Expert: [Ian Seyler](https://keybase.io/ianseyler)
 
 ## Introduction
 This is partially a school project but mostly for me to learn about how computers work at the machine code level.
@@ -10,7 +10,7 @@ This is partially a school project but mostly for me to learn about how computer
 The repo is organised in to folders for each project or tutorial.
 <br>
 <br>
-The examples will be shown at three levels. First, an example of what the user sees (ex. a window with a button). I will be calling this the **User** level. Second, an example of the underlying code in a high level, interpreted language. I have chosen python because of it's simplicity and flexibility. Third, an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code) specifically, x86-64 assembly. I chose assembly because is a good way of showing what is happening on the computer at the lowest level.
+The examples will be shown at four levels. First, an example of what the user sees (ex. a window with a button). I will be calling this the **User** level. Second, an example of the underlying code in a high level, interpreted language. I have chosen python because of it's simplicity and flexibility. Third, an example in C / C++  . Fourth, an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code) specifically, x86-64 assembly. I chose assembly because is a good way of showing what is happening on the computer at the lowest level. 
 <br><br>
 An important detail to note is that all of the tutorials are designed for a **linux** system running on a **x86-64** cpu. The examples may work on other operating systems and architectures but have **not** been tested
 ## Hello world
@@ -35,6 +35,15 @@ The first line, `#!/usr/bin/env python` is called a shebang. it is to tell the s
 <br><br>
 The second line is quite self-descriptive. In python, the `print()` function displays anything that is in the brackets in the terminal. In this case, the brackets contain the string `Hello, world!`. When printing text, it needs to be stored in a string. To store test in a string in python, just add double quotes around it. For example ` "Hello, world!"`. Simple! Right?
  Now let's look at what the computer is actually doing.
+### C
+```c
+#include<stdio.h>
+
+int main(void) {
+    printf("Hello World\n");
+    return 0;
+}
+```
 ### x86-64 Assembly
 
 This is how to print out *Hello, world!* in x86-64:
