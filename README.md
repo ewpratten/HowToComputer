@@ -7,6 +7,8 @@
 ## Introduction
 This is partially a school project but mostly for me to learn about how computers work at the machine code level.
 <br><br>
+A little bit of important information going in to this is, as of the time of me starting this document (Monday, December 4, 2017) I do not know anything about x86-64 assembly or computer architecture. I also have no experience in lua and didn't even know that I could get it from [AUR](https://www.archlinux.org/packages/extra/x86_64/lua/) until a few days ago.
+<br><br>
 Most of the examples will be shown at four levels. First, an example of what the user sees (ex. a window with a button). I will be calling this the **User** level. Second, an example of the underlying code in a high level, interpreted language. I have chosen python because of it's simplicity and flexibility. Third, an example in C / C++  . Fourth, an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code) specifically, x86-64 assembly. I chose assembly because is a good way of showing what is happening on the computer at the lowest level. 
 <br><br>
 An important detail to note is that all of the tutorials are designed for a **linux** system running on a **x86-64** cpu. The examples may work on other operating systems and architectures but have **not been tested. **
@@ -154,3 +156,4 @@ a1=0 a2=0 a3=0 b1=0 b2=0 b3=0 c1=0 c2=0 c3=0 d1=0 d2=0 d3=0 e1=0 e2=0 e3=0 f1=0 
 end
 ```
 This function is only used for debugging. All it does is set all the input variables to *0*.
+<br><br>
