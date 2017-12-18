@@ -3,6 +3,8 @@
 #### By: [Evan Pratten](https://keybase.io/ewpratten)
 #### With help from: 
 > **[Ian Seyler](https://keybase.io/ianseyler)**
+<br>
+> **[Warren Pratten](https://www.linkedin.com/in/warrenpratten)**
 
 ## Introduction
 This is partially a school project but mostly for me to learn about how computers work at the machine code level.
@@ -157,3 +159,51 @@ end
 ```
 This function is only used for debugging. All it does is set all the input variables to *0*.
 <br><br>
+Next, is the `compress()` function.
+```lua
+function compress()
+a=(a1+a2+a3)/3
+b=(b1+b2+b3)/3
+c=(c1+c2+c3)/3
+d=(d1+d2+d3)/3
+e=(e1+e2+e3)/3
+f=(f1+f2+f3)/3
+g=(g1+g2+g3)/3
+h=(h1+h2+h3)/3
+-- clearmem()
+end
+```
+
+This function preforms a simple equation that finds the average of three numbers. the average is stored in a single variable. This cuts down the file size from 24 bytes (assuming only whole numbers are inputted) to 8 bytes (assuming only whole numbers are inputted).
+<br><br>
+The next function is to draw the data on the Tic80 screen.
+```lua
+function drawcpr()
+	if a>128 then a=128 end
+	spr(1,1*8,a)
+	
+	if b>128 then b=128 end
+	spr(1,4*8,b)
+	
+	if c>128 then c=128 end
+	spr(1,7*8,c)
+	
+	if d>128 then d=128 end
+	spr(1,10*8,d)
+	
+	if e>128 then e=128 end
+	spr(1,13*8,e)
+	
+	if f>128 then f=128 end
+	spr(1,16*8,f)
+	
+	if g>128 then g=128 end
+	spr(1,19*8,g)
+	
+	if h>128 then h=128 end
+	spr(1,22*8,h)
+end
+```
+
+## References
+Easy x86-64. (2017). Ian.seyler.me. Retrieved 4 December 2017, from http://ian.seyler.me/easy_x86-64/
