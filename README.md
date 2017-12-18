@@ -13,7 +13,7 @@ A little bit of important information going in to this is, as of the time of me 
 <br><br>
 Most of the examples will be shown at four levels. First, an example of what the user sees (ex. a window with a button). I will be calling this the **User** level. Second, an example of the underlying code in a high level, interpreted language. I have chosen python because of it's simplicity and flexibility. Third, an example in C / C++  . Fourth, an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code) specifically, x86-64 assembly. I chose assembly because is a good way of showing what is happening on the computer at the lowest level. 
 <br><br>
-An important detail to note is that all of the tutorials are designed for a **linux** system running on a **x86-64** cpu. The examples may work on other operating systems and architectures but have **not been tested. **
+An important detail to note is that all of the tutorials are designed for a **linux** system running on a **x86-64** based cpu. The examples may work on other operating systems and architectures but have **not been tested. **
 
 ## Hello world
 
@@ -89,6 +89,10 @@ This *User* example is not that interesting. All you will see is the following:
 ### x86-64 Assembly
 
 ## How A Computer Works
+This section takes a look at some of the basic functions and software components of a computer.
+### <div id="comments">Comments</div>
+
+### <div id="arrays">Arrays</div>
 
 #####MORE INFO HERE
 
@@ -97,13 +101,13 @@ This *User* example is not that interesting. All you will see is the following:
 The final mini project that I want to make is a basic GIS (Global Information System). A key function that a GIS deals with is terrain mapping. In this project, I will be graphing altitude data.
 
 ### Limitations
-Due to some time limitations, this will be very simple. My end goal will be explained in the next section. In staid of having a 3D model of the mapping region, I will only be able to provide a 2D view. This could still be useful if you where to render a bunch of 2D views but I don't have the time or skill to make it work.
+Due to some time limitations, this will be very simple. My end goal will be explained in the next section. In staid of having a 3D model of the mapping region, I will only be able to provide a 2D view. This could still be useful if you where to render a bunch of 2D views but I don't have the time or skill to make 3D graphics work.
 
 ### End goal
 I am hoping to have a system that will allow terrain altitude points to be entered. Then the points will be "compressed" in this scenario, the average of multiple points will be stored in an array to save space. The I will also have a system to try to recreate a semi-accurate model of the original data using as little data points as possible.
 
 ### Getting started
-Due to it's ease of use, I will be writing this program in [Lua](lua.org). Specifically,  using the Tic80 api. This allows ease packaged distribution of the program and an easy way to draw graphics, which will be important for displaying data.
+Due to it's ease of use, I will be writing this program in [Lua](lua.org). Specifically,  using the [Tic80](https://tic.computer) api. This allows ease packaged distribution of the program and an easy way to draw graphics, which will be important for displaying data.
 
 ### Tic80
 
@@ -114,49 +118,48 @@ add info
 Due to the large file size, the code can not me displayed in this file. I have a mirror of the code both at [GitHub](https://github.com/Ewpratten/HowToComputer/tree/master/minigis) and the [RetryLife mirror server](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/minigis/program.lua).
 
 ### Program breakdown
-
-The first section of the program is just to define and set variables.
-
+Lua's [comments](#comments) are formatted in the following way:
 ```lua
-a=0 b=0 c=0 d=0 e=0 f=0 g=0 h=0 state=0
+--this is a comment
+-- this is a comment
+-- This Is A Comment --
 ```
-The variables *a,b,c,d,e,f,g,h,* are used to store the compressed data that is generated in the `compress()` function. The *state* variable is used to switch the display from compressed to uncompressed mode.
+
+The first section is the [array](#arrays). All the information to be compressed is stored in the array. Due to the lack of safety checks in the code, This array ** must ** contain 24 or more entries.
+```lua
+-- input data --
+ino={13,16,35,46,35,22,37,51,45,48,49,33,34,67,47,45,47,46,36,38,47,47,79,99}
+```
+Second, declaring and initialising variables and arrays.
+```lua
+-- Declare variables --
+state=2 comp={} og={}
+```
+This section is important because lua requires variables to contain content in order to preform mathematical operations. I originally did not define variables and ended up with a screen full of errors or just crashing my computer.
 <br><br>
-Next, is the variables used for storing the original data and later stores the uncompressed data for the `draw()` function to read from.
+The next section stores the inputted data in another array so that the program can display the original data for comparing results. If this program was to actually be used for compression, this code should be removed. 
 
 ```lua
-a1=0
-a2=0
-a3=0
-b1=0
-b2=0
-b3=0
-c1=0
-c2=0
-c3=0
-d1=0
-d2=0
-d3=0
-e1=0
-e2=0
-e3=0
-f1=0
-f2=0
-f3=0
-g1=0
-g2=0
-g3=0
-h1=0
-h2=0
-h3=0
-```
-Next is the `memclear()` function.
-
-```lua
-function clearmem()
-a1=0 a2=0 a3=0 b1=0 b2=0 b3=0 c1=0 c2=0 c3=0 d1=0 d2=0 d3=0 e1=0 e2=0 e3=0 f1=0 f2=0 f3=0 g1=0 g2=0 g3=0 h1=0 h2=0 h3=0
+-- Store input data for use by draw("input") --
+for i=1, 24 do
+	og[i]=ino[i]
 end
 ```
+Next, the most important part of this program.
+```lua
+-- Compression --
+function compress()
+	j=1
+	for i=1, 8 do
+		comp[j]=(ino[i]+ino[i+1]+ino[i+2])/3
+		i=i+3
+		j=j+1
+	end
+end
+```
+This, is the compression algorithm 
+
+
 This function is only used for debugging. All it does is set all the input variables to *0*.
 <br><br>
 Next, is the `compress()` function.
@@ -207,3 +210,17 @@ end
 
 ## References
 Easy x86-64. (2017). Ian.seyler.me. Retrieved 4 December 2017, from http://ian.seyler.me/easy_x86-64/
+<br><br>
+TIC-80 Wiki. (2017). GitHub. Retrieved 11 December 2017, from https://github.com/nesbox/TIC-80/wiki
+<br><br>
+TIC-80 Tutorials. (2017). GitHub. Retrieved 13 December 2017, from https://github.com/nesbox/TIC-80/wiki/Simple-Platformer-tutorial
+<br><br>
+Lua: FAQ. (2017). Lua.org. Retrieved 15 December 2017, from https://www.lua.org/faq.html
+<br><br>
+Lua 5.3 Reference Manual - contents. (2017). Lua.org. Retrieved 13 December 2017, from https://www.lua.org/manual/5.3/
+
+# TODO
+- snapcode
+-  images
+- documenting
+- repo
