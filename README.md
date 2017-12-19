@@ -90,13 +90,17 @@ This *User* example is not that interesting. All you will see is the following:
 
 ## How A Computer Works
 This section takes a look at some of the basic functions and software components of a computer.
+
 ### <div id="comments">Comments</div>
+Comments are an important part of writing a program, but are not required. The computer never sees comments when executing code but they can be used to document your code or to k=just have a TODO list. For example I have a TODO list in the comments in this document so I can keep track of my work and goals.
+
+### TODO: check image link:
+![alt text](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/todo.png "My commented TODO list")
 
 ### <div id="arrays">Arrays</div>
+An array is used to store large quantities of similar data. For example, in my [mini GIS](#gis) project, I use an array to store altitude data.
 
-#####MORE INFO HERE
-
-## Building a basic Global Information System
+## <div id="gis">Building a basic Global Information System </div>
 
 The final mini project that I want to make is a basic GIS (Global Information System). A key function that a GIS deals with is terrain mapping. In this project, I will be graphing altitude data.
 
@@ -157,54 +161,24 @@ function compress()
 	end
 end
 ```
-This, is the compression algorithm 
+This, is the compression algorithm. The way it works is actually quite simple. The disign is based on this diagram that I drew:
 
+##### TODO: fix image
+![IMAGE UNABLE TO DISPLAY](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/compression.png "compression")
 
-This function is only used for debugging. All it does is set all the input variables to *0*.
+I will try to explain the algorithm in a way that is easier to explain. Let's take three data points. Due to the 3:1 compression, these three points need to be made in to one point. The way that i handle this is as follows. Let's say that these are the three points: *12, 15, 16*. The program then finds the average of the points and stores it in an [array](#arrays). In this case, the output would be *14.333*.
 <br><br>
-Next, is the `compress()` function.
+Now for the oppisite.
 ```lua
-function compress()
-a=(a1+a2+a3)/3
-b=(b1+b2+b3)/3
-c=(c1+c2+c3)/3
-d=(d1+d2+d3)/3
-e=(e1+e2+e3)/3
-f=(f1+f2+f3)/3
-g=(g1+g2+g3)/3
-h=(h1+h2+h3)/3
--- clearmem()
-end
-```
-
-This function preforms a simple equation that finds the average of three numbers. the average is stored in a single variable. This cuts down the file size from 24 bytes (assuming only whole numbers are inputted) to 8 bytes (assuming only whole numbers are inputted).
-<br><br>
-The next function is to draw the data on the Tic80 screen.
-```lua
-function drawcpr()
-	if a>128 then a=128 end
-	spr(1,1*8,a)
-	
-	if b>128 then b=128 end
-	spr(1,4*8,b)
-	
-	if c>128 then c=128 end
-	spr(1,7*8,c)
-	
-	if d>128 then d=128 end
-	spr(1,10*8,d)
-	
-	if e>128 then e=128 end
-	spr(1,13*8,e)
-	
-	if f>128 then f=128 end
-	spr(1,16*8,f)
-	
-	if g>128 then g=128 end
-	spr(1,19*8,g)
-	
-	if h>128 then h=128 end
-	spr(1,22*8,h)
+function uncompress()
+	i=1
+	for j=1, 7 do
+		ino[i]=comp[j]
+		mid=(comp[j]+comp[j+1])/2
+		ino[i+1]=(comp[j]+mid)/2
+		ino[i+2]=(comp[j+1]+mid)/2
+		i=i+3
+	end
 end
 ```
 
