@@ -94,7 +94,6 @@ This section takes a look at some of the basic functions and software components
 ### <div id="comments">Comments</div>
 Comments are an important part of writing a program, but are not required. The computer never sees comments when executing code but they can be used to document your code or to k=just have a TODO list. For example I have a TODO list in the comments in this document so I can keep track of my work and goals.
 
-### TODO: check image link:
 ![alt text](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/todo.png "My commented TODO list")
 
 ### <div id="arrays">Arrays</div>
