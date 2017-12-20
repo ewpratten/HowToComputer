@@ -1,4 +1,4 @@
-# echo "Hello, world!" | /dev/null
+# echo "Hello, world!" >> /dev/null
 ## Learning how computers work through a series of small projects
 #### By: [Evan Pratten](https://keybase.io/ewpratten)
 #### With help from: 
