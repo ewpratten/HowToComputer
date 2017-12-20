@@ -82,10 +82,17 @@ Moving on to something simpler, it's time for some simple math. The end result o
 
 ### User
 This *User* example is not that interesting. All you will see is the following:
-##### TODO: add image
 
+![IMAGE UNABLE TO DISPLAY](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/math.png "The output")
+
+Nothing! That is because this program does not print anything. It just stores math results in either [variables]() or [registers]().
 ### Python
 
+```python
+#!/usr/bin/env python
+a=int(1)+int(1)
+b=
+```
 ### x86-64 Assembly
 
 ## How A Computer Works
@@ -163,7 +170,8 @@ end
 This, is the compression algorithm. The way it works is actually quite simple. The disign is based on this diagram that I drew:
 
 ##### TODO: fix image
-![IMAGE UNABLE TO DISPLAY](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/compression.png "compression")
+
+![IMAGE UNABLE TO DISPLAY](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/compression.jpeg "compression")
 
 I will try to explain the algorithm in a way that is easier to explain. Let's take three data points. Due to the 3:1 compression, these three points need to be made in to one point. The way that i handle this is as follows. Let's say that these are the three points: *12, 15, 16*. The program then finds the average of the points and stores it in an [array](#arrays). In this case, the output would be *14.333*.
 <br><br>
