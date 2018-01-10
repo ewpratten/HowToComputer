@@ -45,6 +45,8 @@ int main(void) {
     return 0;
 }
 ```
+# TODO: FIX
+
 ### x86-64 Assembly
 
 This is how to print out *Hello, world!* in x86-64:
@@ -99,7 +101,7 @@ This *User* example is not that interesting. All you will see is the following:
 
 ![IMAGE UNABLE TO DISPLAY](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/math.png "The output")
 
-Nothing! That is because this program does not print anything. It just stores math results in either [variables]() or [registers]().
+Nothing! That is because this program does not print anything. It just stores math results in either [variables]() or the [stack]().
 ### Python
 
 ```python
@@ -127,7 +129,7 @@ C++ is similar to python, except that surrounding the numbers in `int()` can be 
 
 ### x86-64 Assembly
 
-```
+```assembly
 mov rax, 1	; store 1 in register rax
 add rax, 1	; add 1 to rax (1+1)
 push rax	; put the value of rax (2) into the stack
@@ -146,9 +148,175 @@ push rax	; put the value of rax (1) into the stack
 ```
 Due to the nature of assembly, every line of code is documented. so this does not require much explanation. All of the results are stored in the stack. A stack is a last in, first out (LIFO) data structure. The push operation adds to the top of the list and the pop operation removes an item from the top of the list. 
 ## How A Computer Works
-This section takes a look at some of the basic functions and software components of a computer.
+This section takes a look at some of the basic functions and software components of a computer. 
 
-# TODO: FIX
+### Physical Architecture
+A basic computer has three main parts. The cpu, memory, and i/o.
+
+#### CPU
+The cpu takes in the instructions from assembly and does what it is instructed to do. It also is where the registers are physically located.
+##### Registers
+In assembly, a register can be set using the following:
+```assembly
+mov rax, 15
+```
+In this case, the value *15* is stored in the register **rax**. Registers are labled using the following diagram:
+<table border="1" cellspacing="0" cellpadding="2">
+ <tbody><tr>
+  <td align="center" colspan="12" bgcolor="#004080">&nbsp;<br><font size="+2" color="#FFFFFF" face="Arial">traditional general purpose registers</font><br>&nbsp;</td>
+ </tr>
+ <tr>
+  <td width="18" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">6<br>3</font></td>
+  <td width="350" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">&nbsp;</font></td>
+  <td width="18" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">3<br>2</font></td>
+  <td width="18" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">3<br>1</font></td>
+  <td width="150" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">&nbsp;</font></td>
+  <td width="18" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">1<br>6</font></td>
+  <td width="18" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">1<br>5</font></td>
+  <td width="50" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">&nbsp;</font></td>
+  <td width="18" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">8</font></td>
+  <td width="18" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">7</font></td>
+  <td width="50" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">&nbsp;</font></td>
+  <td width="18" align="center" bgcolor="#004080"><font color="#FFFFFF" face="Arial">0</font></td>
+ </tr>
+ <tr>
+ </tr>
+ <tr>
+  <td align="center" colspan="12" bgcolor="#B0D0D0"><font face="Arial">RAX or R0</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" bgcolor="#008080"><font face="Arial">zero-extended</font></td>
+  <td align="center" colspan="9"><font face="Arial">EAX or R0D</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#008080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="6"><font face="Arial">AX or R0W</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3"><font face="Arial">AH</font></td>
+  <td align="center" colspan="3"><font face="Arial">AL or R0B</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="12" bgcolor="#B0D0D0"><font face="Arial">RCX or R1</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" bgcolor="#008080"><font face="Arial">zero-extended</font></td>
+  <td align="center" colspan="9"><font face="Arial">ECX or R1D</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#008080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="6"><font face="Arial">CX or R1W</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3"><font face="Arial">CH</font></td>
+  <td align="center" colspan="3"><font face="Arial">CL or R1B</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="12" bgcolor="#B0D0D0"><font face="Arial">RDX or R2</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" bgcolor="#008080"><font face="Arial">zero-extended</font></td>
+  <td align="center" colspan="9"><font face="Arial">EDX or R2D</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#008080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="6"><font face="Arial">DX or R2W</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3"><font face="Arial">DH</font></td>
+  <td align="center" colspan="3"><font face="Arial">DL or R2B</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="12" bgcolor="#B0D0D0"><font face="Arial">RBX or R3</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" bgcolor="#008080"><font face="Arial">zero-extended</font></td>
+  <td align="center" colspan="9"><font face="Arial">EBX or R3D</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#008080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="6"><font face="Arial">BX or R3W</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3"><font face="Arial">BH</font></td>
+  <td align="center" colspan="3"><font face="Arial">BL or R3B</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="12" bgcolor="#B0D0D0"><font face="Arial"><a href="sframe.htm">RSP or R4</a></font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" bgcolor="#008080"><font face="Arial">zero-extended</font></td>
+  <td align="center" colspan="9"><font face="Arial"><a href="sframe.htm">ESP or R4D</a></font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#008080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="6"><font face="Arial"><a href="sframe.htm">SP or R4W</a></font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="6" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" bgcolor="#B0D0D0"><font face="Arial">SPL or R4B</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="12" bgcolor="#B0D0D0"><font face="Arial">RBP or R5</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" bgcolor="#008080"><font face="Arial">zero-extended</font></td>
+  <td align="center" colspan="9"><font face="Arial">EBP or R5D</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#008080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="6"><font face="Arial">BP or R5W</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="6" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" bgcolor="#B0D0D0"><font face="Arial">BPL or R5B</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="12" bgcolor="#B0D0D0"><font face="Arial">RSI or R6</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" bgcolor="#008080"><font face="Arial">zero-extended</font></td>
+  <td align="center" colspan="9"><font face="Arial">ESI or R6D</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#008080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="6"><font face="Arial">SI or R6W</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="6" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" bgcolor="#B0D0D0"><font face="Arial">SIL or R6B</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="12" bgcolor="#B0D0D0"><font face="Arial">RDI or R7</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" bgcolor="#008080"><font face="Arial">zero-extended</font></td>
+  <td align="center" colspan="9"><font face="Arial">EDI or R7D</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="3" rowspan="2" bgcolor="#008080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="6"><font face="Arial">DI or R7W</font></td>
+ </tr>
+ <tr>
+  <td align="center" colspan="6" bgcolor="#808080"><font face="Arial">preserved</font></td>
+  <td align="center" colspan="3" bgcolor="#B0D0D0"><font face="Arial">DIL or R7B</font></td>
+ </tr>
+</tbody></table>
+
+#### Memory
+The Random Access Memory or RAM for short, is used to store data for short periods of time.
+
+#### I/O
+All external devices are connected through I/O (Input / Output). Some of these devices could be Keyboards, mice, storage, graphics cards, and USB devices.
+
 
 ### <div id="comments">Comments</div>
 Comments are an important part of writing a program, but are not required. The computer never sees comments when executing code but they can be used to document your code or to k=just have a TODO list. For example I have a TODO list in the comments in this document so I can keep track of my work and goals.
@@ -300,7 +468,8 @@ end
 ```
 The `TIC()` function runs once every 60 seconds. First, it clears the screen. Then, tests if any buttons are being pressed. If a button is pressed, the *state* changes. Next, it checks the state and draws the matching data.
 
-
+## Conclusion 
+What have I learned? The answer is *a lot*. Going in to this project, I did not expect to learn as much as I did. I even learned things that I thought I already knew. Like, how to properly make use of `for` loops to make small, efficient code that is very functional.
 
 ## References
 Easy x86-64. (2017). Ian.seyler.me. Retrieved 4 December 2017, from http://ian.seyler.me/easy_x86-64/
@@ -314,4 +483,3 @@ Lua: FAQ. (2017). Lua.org. Retrieved 15 December 2017, from https://www.lua.org/
 Lua 5.3 Reference Manual - contents. (2017). Lua.org. Retrieved 13 December 2017, from https://www.lua.org/manual/5.3/
 <br><br>
 Assembly Basic Syntax. (2018). www.tutorialspoint.com. Retrieved 10 January 2018, from https://www.tutorialspoint.com/assembly_programming/assembly_basic_syntax.htm
-
