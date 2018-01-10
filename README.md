@@ -32,7 +32,7 @@ print "Hello, world"
 ```
 What this does is as follows:
 <br><br>
-The first line, `#!/usr/bin/env python` is called a shebang or hashpling. It is to tell the system what to use to execute this script. In this case the shebang is pointing to python in the `/usr/bin/env` directory of a standard unix system.
+The first line, `#!/usr/bin/env python` is called a <div id="shebang">shebang</div> or hashpling. It is to tell the system what to use to execute this script. In this case the shebang is pointing to python in the `/usr/bin/env` directory of a standard unix system.
 <br><br>
 The second line is quite self-descriptive. In python, the `print()` function displays anything that is in the brackets in the terminal. In this case, the brackets contain the string `Hello, world!`. When printing text, it needs to be stored in a string. To store test in a string in python, just add double quotes around it. For example ` "Hello, world!"`. Simple! Right?
  Now let's look at what the computer is actually doing.
@@ -72,9 +72,23 @@ nasm -f elf *.asm; ld -m elf_i386 -s -o demo *.o && demo
 ```
 The text after the semicolon is a comment. Comments are used to explain what the line of instructions does.
 <br><br>
-Let's start at the first line.
+First, is:
+```assembly
+section	.text
+	global _start       ;must be declared for using gcc
+_start:                     ;tell linker entry point
+```
+This section is called the *.text* section. It contains the actual program. The `global_start` and `_start` lines tell the computer where the program actually starts.
+<br><br>
+In order, the program then does the following. Store the message length and contents into two registers, Set two registers with info to exit the kernel to print the stored message, then tell the kernel to exit the program.
 
-# TODO: ADD INFO LATER
+```assembly
+section .data
+
+msg db  'Hello, world!',0xa ;the string
+len equ $ - msg         ;length of the string
+```
+The *.data* section is for setting values and initializing the program. In this case it stores the text and finds the length.
 
 ## Simple Math
 
@@ -90,13 +104,51 @@ Nothing! That is because this program does not print anything. It just stores ma
 
 ```python
 #!/usr/bin/env python
-a=int(1)+int(1)
-b=
+a=int(1) + int(1)
+b=int(2) * int(4)
+c=int(8) / int(2)
+d=int(3) - int(2)
 ```
+First we start with the [shebang](#shebang). The the math. All numbers must be surrounded in `int()`. In this case, *a* is equal to *1 + 1*. The same applies to the other lines, but with different numbers and operations.
+
+### C++
+
+```c
+
+	int main(){
+		int a = 1+1
+		int b = 2*4
+		int c = 8/2
+		int d = 3-2
+	}
+```
+C++ is similar to python, except that surrounding the numbers in `int()` can be replaced with adding `int` to the start of the line. This tells the compiler that the variable will be an integer. The `int main(){` line tells the compiler that this is the main section of code, and to run everything inside of the brackets (`{}`).
+
+
 ### x86-64 Assembly
 
+```
+mov rax, 1	; store 1 in register rax
+add rax, 1	; add 1 to rax (1+1)
+push rax	; put the value of rax (2) into the stack
+mov rax, 2	; store 2 in register rax
+mov rcx, 4	; store 4 in register rcx
+mul rcx		; multiplies rcx by rax, then stores the output in rax
+push rax	; put the value of rax (8) into the stack
+mov rax, 8	; store 8 in register rax
+mov rdx, 0	; clear rdx to 0
+mov rbx, 2	; store 2 in register rax
+div rbx		; Divide rax by rbx. rdx will be set to 0, and rax will be set to 4
+push rax 	; put the value of rax (4) into the stack
+mov rax, 3	; store 3 in register rax
+sub rax, 2	; subtract 2 from rax (3-2)
+push rax	; put the value of rax (1) into the stack
+```
+Due to the nature of assembly, every line of code is documented. so this does not require much explanation. All of the results are stored in the stack. A stack is a last in, first out (LIFO) data structure. The push operation adds to the top of the list and the pop operation removes an item from the top of the list. 
 ## How A Computer Works
 This section takes a look at some of the basic functions and software components of a computer.
+
+# TODO: FIX
 
 ### <div id="comments">Comments</div>
 Comments are an important part of writing a program, but are not required. The computer never sees comments when executing code but they can be used to document your code or to k=just have a TODO list. For example I have a TODO list in the comments in this document so I can keep track of my work and goals.
@@ -117,11 +169,11 @@ Due to some time limitations, this will be very simple. My end goal will be expl
 I am hoping to have a system that will allow terrain altitude points to be entered. Then the points will be "compressed" in this scenario, the average of multiple points will be stored in an array to save space. The I will also have a system to try to recreate a semi-accurate model of the original data using as little data points as possible.
 
 ### Getting started
-Due to it's ease of use, I will be writing this program in [Lua](lua.org). Specifically,  using the [Tic80](https://tic.computer) api. This allows ease packaged distribution of the program and an easy way to draw graphics, which will be important for displaying data.
+Due to it's ease of use, I will be writing this program in [Lua](lua.org). Specifically,  using the [Tic80](https://tic.computer) api. This allows easy packaged distribution of the program and an easy way to draw graphics, which will be important for displaying data.
 
 ### Tic80
 
-add info
+TIC-80 is a fantasy computer for making, playing and sharing games. It has built in tools for code, sprites, maps, sound editors and the command line which are enough tools to make a game. Games  are stored on `.cart` files that emulate game cartridges. It has a 240x136 pixels display, 16 color palette, 256 8x8 color sprites, and 4 channel sound.
 
 ### The program
 
@@ -169,11 +221,9 @@ end
 ```
 This, is the compression algorithm. The way it works is actually quite simple. The disign is based on this diagram that I drew:
 
-##### TODO: fix image
-
 ![IMAGE UNABLE TO DISPLAY](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/compression.jpeg "compression")
 
-I will try to explain the algorithm in a way that is easier to explain. Let's take three data points. Due to the 3:1 compression, these three points need to be made in to one point. The way that i handle this is as follows. Let's say that these are the three points: *12, 15, 16*. The program then finds the average of the points and stores it in an [array](#arrays). In this case, the output would be *14.333*.
+I will try to explain the algorithm in a way that is easier to understand. Let's take three data points. Due to the 3:1 compression, these three points need to be made in to one point. The way that i handle this is as follows. Let's say that these are the three points: *12, 15, 16*. The program then finds the average of the points and stores it in an [array](#arrays). In this case, the output would be *14.333*.
 <br><br>
 Now for the oppisite.
 ```lua
@@ -188,6 +238,69 @@ function uncompress()
 	end
 end
 ```
+This part is quite difficult to explain. Basically, what it does is, find the midpoint between two points, then find the midpoint between the previous midpoint and the original points. Then the data is stored in an array.
+
+```lua
+function draw(inp)
+	if inp=="input" then
+		j=1
+		for i=1, 22, 3 do
+			if og[i]>128 then og[i]=128 end spr(1,j*8-8,og[i])
+			if og[i+1]>128 then og[i+1]=128 end spr(1,j*8,og[i+1])
+			if og[i+2]>128 then og[i+2]=128 end spr(1,j*8+8,og[i+2])
+			j=j+3
+		end
+	elseif inp=="output" then
+		j=1
+		for i=1, 22, 3 do
+			if ino[i]>128 then ino[i]=128 end spr(1,j*8-8,ino[i])
+			if ino[i+1]>128 then ino[i+1]=128 end spr(1,j*8,ino[i+1])
+			if ino[i+2]>128 then ino[i+2]=128 end spr(1,j*8+8,ino[i+2])
+			j=j+3
+		end
+	elseif inp=="compressed" then
+		j=1
+		for i=1, 8 do
+			if comp[i]>128 then comp[i]=128 end
+				spr(1,j*8,comp[i])
+				j=j+3
+		end
+	else
+		trace("ERROR: Invalid draw mode")
+		trace("try input, output, or compressed")
+		exit()
+	end
+end
+```
+This section is the drawing / graphing code. It has three states, *input, output, and compressed* for each state, it iterates through the given points then takes the data value and generates coordinates. Next, it draws the points using the Tic80 sprite function, which draws the little red dot.
+<br><br>
+Next, the program initializes by compressing then uncompromising the data.
+
+```lua
+compress()
+uncompress()
+```
+Then, finally, the main function.
+
+```lua
+-- Main Loop --
+function TIC()
+	cls(13)
+	if btn(0) then state=1 end
+	if btn(2) then state=2 end
+	if btn(1) then state=0 end
+	if state==0 then
+		draw("compressed")
+	elseif state==1 then
+		draw("output")
+	elseif state==2 then
+		draw("input")
+	end
+end
+```
+The `TIC()` function runs once every 60 seconds. First, it clears the screen. Then, tests if any buttons are being pressed. If a button is pressed, the *state* changes. Next, it checks the state and draws the matching data.
+
+
 
 ## References
 Easy x86-64. (2017). Ian.seyler.me. Retrieved 4 December 2017, from http://ian.seyler.me/easy_x86-64/
@@ -199,9 +312,6 @@ TIC-80 Tutorials. (2017). GitHub. Retrieved 13 December 2017, from https://githu
 Lua: FAQ. (2017). Lua.org. Retrieved 15 December 2017, from https://www.lua.org/faq.html
 <br><br>
 Lua 5.3 Reference Manual - contents. (2017). Lua.org. Retrieved 13 December 2017, from https://www.lua.org/manual/5.3/
+<br><br>
+Assembly Basic Syntax. (2018). www.tutorialspoint.com. Retrieved 10 January 2018, from https://www.tutorialspoint.com/assembly_programming/assembly_basic_syntax.htm
 
-# TODO
-- snapcode
--  images
-- documenting
-- repo
