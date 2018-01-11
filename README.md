@@ -3,7 +3,6 @@
 #### By: [Evan Pratten](https://keybase.io/ewpratten)
 #### With help from: 
 > **[Ian Seyler](https://keybase.io/ianseyler)**
-<br>
 > **[Warren Pratten](https://www.linkedin.com/in/warrenpratten)**
 
 ## Introduction
@@ -317,6 +316,7 @@ The Random Access Memory or RAM for short, is used to store data for short perio
 #### I/O
 All external devices are connected through I/O (Input / Output). Some of these devices could be Keyboards, mice, storage, graphics cards, and USB devices.
 
+## Usefully terms
 
 ### <div id="comments">Comments</div>
 Comments are an important part of writing a program, but are not required. The computer never sees comments when executing code but they can be used to document your code or to k=just have a TODO list. For example I have a TODO list in the comments in this document so I can keep track of my work and goals.
@@ -483,3 +483,4 @@ Lua: FAQ. (2017). Lua.org. Retrieved 15 December 2017, from https://www.lua.org/
 Lua 5.3 Reference Manual - contents. (2017). Lua.org. Retrieved 13 December 2017, from https://www.lua.org/manual/5.3/
 <br><br>
 Assembly Basic Syntax. (2018). www.tutorialspoint.com. Retrieved 10 January 2018, from https://www.tutorialspoint.com/assembly_programming/assembly_basic_syntax.htm
+
