@@ -2,13 +2,13 @@
 ## Learning how computers work through a series of small projects
 #### By: [Evan Pratten](https://keybase.io/ewpratten)
 #### With help from: 
-> **[Ian Seyler](https://keybase.io/ianseyler)**
-> **[Warren Pratten](https://www.linkedin.com/in/warrenpratten)**
+- **[Ian Seyler](https://keybase.io/ianseyler)** 
+- **[Warren Pratten](https://www.linkedin.com/in/warrenpratten)**
 
 ## Introduction
 This is partially a school project but mostly for me to learn about how computers work at the machine code level.
 <br><br>
-A little bit of important information going in to this is, as of the time of me starting this document (Monday, December 4, 2017) I do not know anything about x86-64 assembly or computer architecture. I also have no experience in lua and didn't even know that I could get it from [AUR](https://www.archlinux.org/packages/extra/x86_64/lua/) until a few days ago.
+A little bit of important information going in to this is, as of the time of me starting this document (Monday, December 4, 2017) I do not know anything about x86-64 assembly or computer architecture. I also have no experience in lua and didn't even know that I could get it from [AUR](https://www.archlinux.org/packages/extra/x86_64/lua/) (Arch linux User Repository) until a few days ago.
 <br><br>
 Most of the examples will be shown at four levels. First, an example of what the user sees (ex. a window with a button). I will be calling this the **User** level. Second, an example of the underlying code in a high level, interpreted language. I have chosen python because of it's simplicity and flexibility. Third, an example in C / C++  . Fourth, an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code) specifically, x86-64 assembly. I chose assembly because is a good way of showing what is happening on the computer at the lowest level. 
 <br><br>
@@ -44,7 +44,9 @@ int main(void) {
     return 0;
 }
 ```
-# TODO: FIX
+First, importing the **st**an**d**ard **i**/**o** library using `#include<stdio.h>` . This allows the **c** program to print to the screen, which is required to display text.
+<br><br>
+Next, the `main()` function. All code inside the curly brackets of the following line are run in order when the program starts. `int main(void) {}`. The `printf()` function prints whatever is inside the brackets. In this case, it prints `Hello World`. The `\n` signifies a new line. Then the program exits with a status code of *0* using the `return 0;` line. Exiting with a status code of *0* tells the computer that the program successfully ran without any errors.
 
 ### x86-64 Assembly
 
@@ -315,16 +317,6 @@ The Random Access Memory or RAM for short, is used to store data for short perio
 
 #### I/O
 All external devices are connected through I/O (Input / Output). Some of these devices could be Keyboards, mice, storage, graphics cards, and USB devices.
-
-## Usefully terms
-
-### <div id="comments">Comments</div>
-Comments are an important part of writing a program, but are not required. The computer never sees comments when executing code but they can be used to document your code or to k=just have a TODO list. For example I have a TODO list in the comments in this document so I can keep track of my work and goals.
-
-![alt text](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/todo.png "My commented TODO list")
-
-### <div id="arrays">Arrays</div>
-An array is used to store large quantities of similar data. For example, in my [mini GIS](#gis) project, I use an array to store altitude data.
 
 ## <div id="gis">Building a basic Global Information System </div>
 
