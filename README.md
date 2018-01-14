@@ -8,23 +8,25 @@
 ## Introduction
 This is partially a school project but mostly for me to learn about how computers work at the machine code level.
 <br><br>
-A little bit of important information going in to this is, as of the time of me starting this document (Monday, December 4, 2017) I do not know anything about x86-64 assembly or computer architecture. I also have no experience in lua and didn't even know that I could get it from [AUR](https://www.archlinux.org/packages/extra/x86_64/lua/) (Arch linux User Repository) until a few days ago.
+A little bit of important information going in to this is, as of the time of me starting this document (Monday, December 4, 2017) I do not know anything about x86-64 assembly or computer architecture. I also have no experience in *lua* and didn't even know that I could get it from [AUR](https://www.archlinux.org/packages/extra/x86_64/lua/) (Arch linux User Repository) until a few days before starting this document.
 <br><br>
-Most of the examples will be shown at four levels. First, an example of what the user sees (ex. a window with a button) that I will call the **User** level. Second, there will be an example of the underlying code in a high level, interpreted language. I have chosen python because of it's simplicity and flexibility. Third, there will be an example in C / C++  . Lastly, there will be an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code), specifically x86-64 assembly. I chose assembly because is a good way of showing what is happening on the computer at the lowest level. Computers directly read the instructions from assembly.
+Most of the examples will be shown at four levels. First level, an example of what the user sees (ex. a window with a button) that I will call the **User** level. Second level, there will be an example of the underlying code in a high level, fourth generation, interpreted language. I have chosen Python because of its simplicity and flexibility. Third level, there will be an example in C / C++ , Lastly, there will be an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code), specifically x86-64 assembly. I chose assembly because is a good way of showing what is happening on the computer at the lowest level. Computers directly read the instructions from assembly. This is different from interpreted and compiled languages because there is no layer in between the code and the computer. With a compiled language, the compiler turns the code into instructions.
 <br><br>
-An important detail to note is that all of the projects are designed for a **linux** system running on a **x86-64** based CPU. The examples may work on other operating systems and architectures but these have **not been tested** by me.
+An important detail to note is that all of the projects are designed for a **linux** system running on a **x86-64** based CPU. The examples may work on other operating systems, but have **not been tested** by me.
 
-## Hello world 
+## Hello, world!
 
-Although these tutorials should start from the simplest example first, it is tradition to print the phrase **Hello, world!** as the first thing when learning a new programming language, so that is the example I will proceed with.
+These tutorials should start from the simplest example first. It is tradition to print the phrase **"Hello, world!"** as the first thing when learning a new programming language, so that is the example I will proceed with.
 
 ### User
-At the user level, all you will see is the phrase **Hello, world!** printed on your screen or terminal. Here is a screenshot of the output of a simple *Hello, world!* script in python:
+At the User Level, all you will see is the phrase **"Hello, world!"** printed on your screen or terminal. Here is a screenshot of the output of a simple *"Hello, world!"* script in Python: <br>
 ![alt text](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/python-hello.png "What the user sees")
+<br>
+The extra text at the top exists because the program does not clear the screen before executing.
 
 ### Python
 
-This is the code used to print out *Hello, world!* in python:
+This is the code used to print out *"Hello, world!"* in Python:
 ```python
 #!/usr/bin/env python
 print "Hello, world"
@@ -478,3 +480,4 @@ Lua: FAQ. (2017). Lua.org. Retrieved 15 December 2017, from https://www.lua.org/
 Lua 5.3 Reference Manual - contents. (2017). Lua.org. Retrieved 13 December 2017, from https://www.lua.org/manual/5.3/
 <br><br>
 Assembly Basic Syntax. (2018). www.tutorialspoint.com. Retrieved 10 January 2018, from https://www.tutorialspoint.com/assembly_programming/assembly_basic_syntax.htm
+
