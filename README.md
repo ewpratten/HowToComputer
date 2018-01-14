@@ -28,13 +28,13 @@ The extra text at the top exists because the program does not clear the screen b
 
 This is the code used to print out *"Hello, world!"* in Python:
 ```python
-#!/usr/bin/env python
+#!/usr/bin/env python3
 print("Hello, world")
 
 ```
 What this does is as follows:
 <br><br>
-The first line, `#!/usr/bin/env python` is called a *shebang* or *hashpling*. The shebang tells the system what to use to execute this script. In this case the shebang is pointing to Python in the `/usr/bin/env` directory of a standard UNIX system. 
+The first line, `#!/usr/bin/env python3` is called a *shebang* or *hashpling*. The shebang tells the system what to use to execute this script. In this case the shebang is pointing to Python3. in the `/usr/bin/env` directory of a standard UNIX system. 
 <br><br>
 In Python, the `print()` function displays anything that is in the brackets in the terminal. In this case, the brackets contain the string `Hello, world!`. When printing text, it needs to be stored in a string. To store test in a string in python, just add double quotes around `"test"`. For example ` "Hello, world!"`. Simple! Right?
  Now let's look at what the computer is actually doing.
@@ -43,13 +43,14 @@ In Python, the `print()` function displays anything that is in the brackets in t
 #include<stdio.h>
 
 int main() {
-    printf("Hello World\n");
+    printf("Hello, world \n");
     return 0;
 }
 ```
 The first line imports the **st**an**d**ard **i**/**o** library using `#include<stdio.h>` . This allows the **C++** program to print to the screen, which is required to display text.
 <br><br>
-All code inside the curly brackets of the following line are run in order when the program starts. `int main(void) {}`. The `printf()` function prints whatever is inside the brackets. In this case, it prints `Hello World`. The `\n` signifies a new line. Then the program exits with a status code of *0* using the `return 0;` line. Exiting with a status code of *0* tells the computer that the program successfully ran without any errors.
+All code inside the curly brackets of the following line are run in order when the program starts. `int main(void) {}`. The `printf()` function prints whatever is inside the brackets. In this case, it prints `Hello, world!`. The `\n` signifies a new line. Then the program exits with a status code of *0* using the `return 0;` line. Exiting with a status code of *0* tells the computer that the program successfully ran without any errors. The `main()` function is declared as an *int* so it requires an integer (0) to have its value set correctly.
+
 
 ### x86-64 Assembly
 
@@ -72,21 +73,22 @@ section	.data
 msg	db	'Hello, world!',0xa	;the string
 len	equ	$ - msg			;length of the string
 ```
+The text after the semicolon is a comment. Comments are used to explain what each line of instructions does.
+<br><br>
 Due to the fact that assembly can require special execution commands, I will provide the command I use for each example.
 ```bash
 nasm -f elf *.asm; ld -m elf_i386 -s -o demo *.o && demo
 ```
-The text after the semicolon is a comment. Comments are used to explain what each line of instructions does.
-<br><br>
+
 First, is:
 ```assembly
 section	.text
 	global _start       ;must be declared for using gcc
 _start:                     ;tell linker entry point
 ```
-This section is called the *.text* section. It contains the actual program. The `global_start` and `_start` lines tell the computer where the program actually starts.
+This section is called the *.text* section. It contains the actual program. The `global_start` and `_start` lines tell the computer where the program actually starts. `_start` is roughly equivalent to `main()` in C++.
 <br><br>
-In order, the program then does the following. The program stores the message length and contents into two registers, sets two registers with information to exit the kernel to print the stored message, then tells the kernel to exit the program. The kernel is what sends and receives binary data from the CPU. 
+In order, the program then does the following. The program stores the message length and contents into two registers, sets two registers with information to tell the kernel to print the stored message, then tells the kernel to exit the program. The kernel is what sends and receives binary data from the CPU. It is essentially a traffic cop. The decides what code can run, and where to run it.
 
 ```assembly
 section .data
@@ -94,11 +96,11 @@ section .data
 msg db  'Hello, world!',0xa 	;the string
 len equ $ - msg         			;length of the string
 ```
-The *.data* section is for setting values and initializing the program. In this case it stores the text and finds the length of the phrase.
+The *.data* section is for setting values and initializing the program. In this case it stores the text and finds the length of the phrase. The `msg` opcode is effectively a variable. It is used to store text and converts the stored text to ASCII data to be displayed on the screen.
 
 ## Simple Math
 
-Moving on to something simpler, it's time for some simple math. The end result of this example should be printing the results of the following math problems to the terminal. These are the problems to solve: **1+1, 2\*4, 8/2, 3-2**. Let's look at how this works on three different levels.
+Moving on to something simpler. It's time for some simple math. The end result of this example should be printing the results of the following math problems to the terminal. These are the problems to solve: **1+1, 2\*4, 8/2, 3-2**. Let's look at how this works on three different levels.
 
 ### User
 This *User* example is not that interesting. All you will see is the following:
@@ -109,48 +111,59 @@ Nothing! That is because this program does not print anything. It just stores ma
 ### Python
 
 ```python
-#!/usr/bin/env python
-a=int(1) + int(1)	# 1+1
-b=int(2) * int(4)	# 2*4
-c=int(8) / int(2)	# 8/2
-d=int(3) - int(2)	# 3-2
+#!/usr/bin/env python3
+a=int(1) + int(1)	# a==2
+b=int(2) * int(4)	# b==8
+c=int(8) / int(2)	# c==4
+d=int(3) - int(2)	# d==1
 ```
-First we start with the [shebang](#shebang). In python all numbers must be surrounded by `int()`. In this case, *a* is equal to *1 + 1*. The same applies to the other lines, but with different numbers and operators.
+First we start with the [shebang](#shebang). In Python all numbers must be surrounded by `int()`. In this case, *a* is equal to *1+1*. The same applies to the other lines, but with different numbers and operators.
 
 ### C++
 
 ```c
 
 	int main(){
-		int a = 1+1	# 1+1
-		int b = 2*4	# 2*4
-		int c = 8/2	# 8/2
-		int d = 3-2	# 3-2
-	}
+		int a = 1+1;	# a==2
+		int b = 2*4;	# b==8
+		int c = 8/2;	# c==4
+		int d = 3-2;	# d==1
+	};
 ```
-C++ is similar to python, except that surrounding the numbers in `int()` can be replaced with adding `int` to the start of the line. This tells the compiler that the variable will be an integer. The `int main(){` line tells the compiler that this is the main section of code, and to execute everything inside of the brackets (`{}`). The compiler is what converts C++ or C code to bytecode or binary. The outputted bytecode or binary is then directly run by the CPU.
+C++ is similar to Python, except that surrounding the numbers in `int()` can be replaced with adding `int` to the start of the line. This tells the compiler that the variable will be an integer. The `int main(){` line tells the compiler that this is the main section of code, and to execute everything inside of the brackets (`{}`). The compiler is what converts C++ or C code to binary. The outputted binary is then directly run by the CPU.
+
 
 
 ### x86-64 Assembly
 
 ```assembly
-mov rax, 1	; store 1 in register rax
-add rax, 1	; add 1 to rax (1+1)
-push rax	; put the value of rax (2) into the stack
-mov rax, 2	; store 2 in register rax
-mov rcx, 4	; store 4 in register rcx
-mul rcx		; multiplies rcx by rax, then stores the output in rax
-push rax	; put the value of rax (8) into the stack
-mov rax, 8	; store 8 in register rax
-mov rdx, 0	; clear rdx to 0
-mov rbx, 2	; store 2 in register rax
-div rbx		; Divide rax by rbx. rdx will be set to 0, and rax will be set to 4
-push rax 	; put the value of rax (4) into the stack
-mov rax, 3	; store 3 in register rax
-sub rax, 2	; subtract 2 from rax (3-2)
-push rax	; put the value of rax (1) into the stack
+section	.text
+	global _start       ;must be declared for using gcc
+_start:                     ;tell linker entry point
+	mov rax, 1	; store 1 in register rax
+	add rax, 1	; add 1 to rax (1+1)
+	push rax	; put the value of rax (2) into the stack
+	mov rax, 2	; store 2 in register rax
+	mov rcx, 4	; store 4 in register rcx
+	mul rcx		; multiplies rcx by rax, then stores the output in rax
+	push rax	; put the value of rax (8) into the stack
+	mov rax, 8	; store 8 in register rax
+	mov rdx, 0	; clear rdx to 0
+	mov rbx, 2	; store 2 in register rax
+	div rbx		; Divide rax by rbx. rdx will be set to 0, and rax will be set to 4
+	push rax 	; put the value of rax (4) into the stack
+	mov rax, 3	; store 3 in register rax
+	sub rax, 2	; subtract 2 from rax (3-2)
+	push rax	; put the value of rax (1) into the stack
 ```
-Due to the nature of assembly, every line of code is documented. The reason for this is that assembly opcodes are sometimes quite cryptic. Documenting every line of code helps the code's author or maintainer to understand how it works. All of the results are stored in the stack. 
+Due to the nature of assembly, every line of code is documented. The reason for this is that assembly opcodes are sometimes quite cryptic. Documenting every line of code helps the code's author or maintainer to understand how it works. All of the results are stored in the stack. After this program executes, the stack looks like this:<br>
+\|	--	|<br>
+\|	1	|<br>
+\|	4	|<br>
+\|	8	|<br>
+\|	2	|<br>
+\|	--	|<br>
+
 ## How A Computer Works
 This section takes a look at some of the basic functions and software components of a computer. 
 
@@ -158,14 +171,14 @@ This section takes a look at some of the basic functions and software components
 A basic computer has three main parts. The CPU, memory, and I/O.
 
 #### CPU
-The CPU takes in the instructions from assembly and does what it is instructed to do.  A computer only does what it is told to do. If there is an error, it is not the computer making a mistake. The mistake is caused by the person who wrote the code. This is also is where the registers are physically located.
+The CPU (Central Processing Unit) takes in the assembly instructions from memory and does what it is instructed to do.  A computer only does what it is told to do. If there is an error, it is not the computer making a mistake. The mistake is caused by the person who wrote the code.<br><br>This is also is where the registers are physically located.
 ##### Registers
 Registers are used for temporarily storing data to be used by some operations in assembly.<br>
 In assembly, a register can be set using the following:
 ```assembly
 mov rax, 15
 ```
-In this case, the value *15* is stored in the register **rax**. Registers are labled using the following diagram:
+The opcode `mov` stands for *move* it is used to move the contents of registers to different places or to set a register with a specific value. In this case, the value *15* is stored in the register **rax**. Registers are labled using the following diagram:
 <table border="1" cellspacing="0" cellpadding="2">
  <tbody><tr>
   <td align="center" colspan="12" bgcolor="#004080">&nbsp;<br><font size="+2" color="#FFFFFF" face="Arial">traditional general purpose registers</font><br>&nbsp;</td>
@@ -317,24 +330,24 @@ In this case, the value *15* is stored in the register **rax**. Registers are la
 </tbody></table>
 
 #### Memory
-The Random Access Memory or RAM for short, is used to store data for short periods of time.
+The Random Access Memory or RAM for short, is used to store data for short periods of time. It is based on emmc flash ics (integrated circuits). emmc is also used in USB (Universal Serial Bus) devices and SSDs (Solid State Drives)
 
 #### I/O
-All external devices are connected through I/O (Input / Output). Some of these devices could be keyboards, mice, storage, graphics cards, and USB devices.
+All external devices are connected through I/O (Input / Output). Some of these devices could be keyboards, mice, storage (hard drives and SSDs), graphics cards, printers, and USB devices.
 
 ## <div id="gis">Building a basic Global Information System </div>
 
 The final mini project that I want to make is a basic GIS (Global Information System). A key function that a GIS deals with is terrain mapping. In this project, I will be graphing altitude data.
 
 ### Getting started
-Due to it's ease of use, I will be writing this program in [Lua](lua.org),  using the [Tic80](https://tic.computer) api. This allows easy packaged distribution of the program and an easy way to draw graphics, which will be important for displaying data.
+Due to its ease of use, I will be writing this program in [Lua](lua.org),  using the [Tic80](https://tic.computer) API. This allows easy packaged distribution (the entire program is stored in one file) of the program and an easy way to draw graphics, which will be important for displaying data.
 
 ### End goal
-I am creating a system that will allow terrain altitude points to be entered. Then the points will be "compressed" in this scenario, the average of multiple points will be stored in an array to save space. I will also have a system to recreate a semi-accurate model of the original data using as little data points as possible. It is only *semi accurate* because I am using a lossy compression algorithm. Lossy means that the output data is not an exact replica of the input.
+I am creating a system that will allow terrain altitude points to be entered. Then the points will be "compressed" in this scenario, the average of multiple points will be stored in an array to save space. I will also have a system to recreate a semi-accurate model of the original data using as little data points as possible. It is only *semi accurate* because I am using a lossy compression algorithm. Lossy means that the output data is not an exact replica of the input. The alternative to lossy compression is lossless. Lossless compression means that the data comes out exactly as it goes in.
 
 ### Tic80
 
-TIC-80 is a fantasy computer for making, playing and sharing games. It has built in tools for code, sprites, maps, sound editors and the command line which are enough tools to make a game. Games  are stored on `.cart` files that emulate game cartridges. It has a 240x136 pixels display, 16 color palette, 256 8x8 color sprites, and 4 channel sound.
+Tic80 is a fantasy computer for making, playing and sharing games. It has built in tools for code, sprites (graphics), maps, sound editors and the command line which are enough tools to make a game. Games  are stored on `.cart` files that emulate game cartridges. It has a 240x136 pixels display, 16 colour palette, 256 8x8 colour sprites, and 4 channel sound.
 
 
 ### Limitations
