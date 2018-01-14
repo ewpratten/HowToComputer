@@ -29,25 +29,25 @@ The extra text at the top exists because the program does not clear the screen b
 This is the code used to print out *"Hello, world!"* in Python:
 ```python
 #!/usr/bin/env python
-print "Hello, world"
+print("Hello, world")
 
 ```
 What this does is as follows:
 <br><br>
-The first line, `#!/usr/bin/env python` is called a shebang or hashpling. The shebang tells the system what to use to execute this script. In this case the shebang is pointing to python in the `/usr/bin/env` directory of a standard UNIX system. 
+The first line, `#!/usr/bin/env python` is called a *shebang* or *hashpling*. The shebang tells the system what to use to execute this script. In this case the shebang is pointing to Python in the `/usr/bin/env` directory of a standard UNIX system. 
 <br><br>
-The second line is quite self-descriptive. In python, the `print()` function displays anything that is in the brackets in the terminal. In this case, the brackets contain the string `Hello, world!`. When printing text, it needs to be stored in a string. To store test in a string in python, just add double quotes around `"test"`. For example ` "Hello, world!"`. Simple! Right?
+In Python, the `print()` function displays anything that is in the brackets in the terminal. In this case, the brackets contain the string `Hello, world!`. When printing text, it needs to be stored in a string. To store test in a string in python, just add double quotes around `"test"`. For example ` "Hello, world!"`. Simple! Right?
  Now let's look at what the computer is actually doing.
-### C
+### C++
 ```c
 #include<stdio.h>
 
-int main(void) {
+int main() {
     printf("Hello World\n");
     return 0;
 }
 ```
-The first line imports the **st**an**d**ard **i**/**o** library using `#include<stdio.h>` . This allows the **C** program to print to the screen, which is required to display text.
+The first line imports the **st**an**d**ard **i**/**o** library using `#include<stdio.h>` . This allows the **C++** program to print to the screen, which is required to display text.
 <br><br>
 All code inside the curly brackets of the following line are run in order when the program starts. `int main(void) {}`. The `printf()` function prints whatever is inside the brackets. In this case, it prints `Hello World`. The `\n` signifies a new line. Then the program exits with a status code of *0* using the `return 0;` line. Exiting with a status code of *0* tells the computer that the program successfully ran without any errors.
 
