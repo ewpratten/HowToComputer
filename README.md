@@ -8,18 +8,18 @@
 ## Introduction
 This is partially a school project but mostly for me to learn about how computers work at the machine code level.
 <br><br>
-A little bit of important information going in to this is, as of the time of me starting this document (Monday, December 4, 2017) I do not know anything about x86-64 assembly or computer architecture. I also have no experience in *lua* and didn't even know that I could get it from [AUR](https://www.archlinux.org/packages/extra/x86_64/lua/) (Arch linux User Repository) until a few days before starting this document.
+A little bit of important information going in to this is, as of the time of me starting this document (Monday, December 4, 2017) I do not know anything about x86-64 assembly or computer architecture. I also have no experience in *lua* and didn't even know that I could get it from Arch linux User Repository ([AUR](https://www.archlinux.org/packages/extra/x86_64/lua/)) until a few days before starting this document.
 <br><br>
-Most of the examples will be shown at four levels. First level, an example of what the user sees (ex. a window with a button) that I will call the **User** level. Second level, there will be an example of the underlying code in a high level, fourth generation, interpreted language. I have chosen Python because of its simplicity and flexibility. Third level, there will be an example in C / C++ , Lastly, there will be an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code), specifically x86-64 assembly. I chose assembly because is a good way of showing what is happening on the computer at the lowest level. Computers directly read the instructions from assembly. This is different from interpreted and compiled languages because there is no layer in between the code and the computer. With a compiled language, the compiler turns the code into instructions.
+Most of the examples will be shown at four levels. First level will show an example of what the user sees (ex. a window with a button) that I will call the **User** level. Second level will show an example of the underlying code in a high level, fourth generation, interpreted language. I have chosen Python because of its simplicity and flexibility. Third level will show an example in C / C++ . Lastly, there will be an example in [**machine code**](https://en.wikipedia.org/wiki/Machine_code), specifically x86-64 assembly. I chose assembly because it is a good way of showing what is happening on the computer at the lowest level. Computers directly read the instructions from assembly. This is different from interpreted and compiled languages because there is no layer in between the code and the computer. With a compiled language, the compiler turns the code into instructions.
 <br><br>
 An important detail to note is that all of the projects are designed for a **linux** system running on a **x86-64** based CPU. The examples may work on other operating systems, but have **not been tested** by me.
 
 ## Hello, world!
 
-These tutorials should start from the simplest example first. It is tradition to print the phrase **"Hello, world!"** as the first thing when learning a new programming language, so that is the example I will proceed with.
+It is tradition to print the phrase *"Hello, world!"* as the first thing when learning a new programming language, so that is the example I will proceed with.
 
 ### User
-At the User Level, all you will see is the phrase **"Hello, world!"** printed on your screen or terminal. Here is a screenshot of the output of a simple *"Hello, world!"* script in Python: <br>
+At the User Level, all you will see is the phrase *"Hello, world!"* printed on your screen or terminal. Here is a screenshot of the output of a simple *"Hello, world!"* script in Python: <br>
 ![alt text](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/python-hello.png "What the user sees")
 <br>
 The extra text at the top exists because the program does not clear the screen before executing.
@@ -34,9 +34,9 @@ print("Hello, world")
 ```
 What this does is as follows:
 <br><br>
-The first line, `#!/usr/bin/env python3` is called a *shebang* or *hashpling*. The shebang tells the system what to use to execute this script. In this case the shebang is pointing to Python3. in the `/usr/bin/env` directory of a standard UNIX system. 
+The first line, `#!/usr/bin/env python3` is called a [shebang](#) or [hashpling](#). The [shebang](#) tells the system what to use to execute this script. In this case the [shebang](#) is pointing to Python3. in the `/usr/bin/env` directory of a standard UNIX system. 
 <br><br>
-In Python, the `print()` function displays anything that is in the brackets in the terminal. In this case, the brackets contain the string `Hello, world!`. When printing text, it needs to be stored in a string. To store test in a string in python, just add double quotes around `"test"`. For example ` "Hello, world!"`. Simple! Right?
+In Python, the `print()` function displays anything that is in-between the brackets on the terminal. In this case, the brackets contain the string `Hello, world!`. When printing text, it needs to be stored in a string. To store test in a string in python, just add double quotes around `"test"`. For example ` "Hello, world!"`. Simple! Right?
  Now let's look at what the computer is actually doing.
 ### C++
 ```c
@@ -54,7 +54,7 @@ All code inside the curly brackets of the following line are run in order when t
 
 ### x86-64 Assembly
 
-This is how to print out *Hello, world!* in x86-64:
+This is how to print out *"Hello, world!"* in x86-64:
 
 ```assembly
 section	.text
@@ -73,7 +73,7 @@ section	.data
 msg	db	'Hello, world!',0xa	;the string
 len	equ	$ - msg			;length of the string
 ```
-The text after the semicolon is a comment. Comments are used to explain what each line of instructions does.
+The text after the semicolon is a comment. Comments are used to explain what each line of instruction is doing.
 <br><br>
 Due to the fact that assembly can require special execution commands, I will provide the command I use for each example.
 ```bash
@@ -88,19 +88,19 @@ _start:                     ;tell linker entry point
 ```
 This section is called the *.text* section. It contains the actual program. The `global_start` and `_start` lines tell the computer where the program actually starts. `_start` is roughly equivalent to `main()` in C++.
 <br><br>
-In order, the program then does the following. The program stores the message length and contents into two registers, sets two registers with information to tell the kernel to print the stored message, then tells the kernel to exit the program. The kernel is what sends and receives binary data from the CPU. It is essentially a traffic cop. The decides what code can run, and where to run it.
+In order, the program then does the following. The program stores the message length and contents into two registers, sets two registers with information to tell the kernel to print the stored message, then tells the kernel to exit the program. The kernel is what sends and receives binary data from the Central Processing Unit (CPU). It is essentially a traffic cop that decides what code can run, and where to run it.
 
 ```assembly
 section .data
 
 msg db  'Hello, world!',0xa 	;the string
-len equ $ - msg         			;length of the string
+len equ $ - msg         		;length of the string
 ```
 The *.data* section is for setting values and initializing the program. In this case it stores the text and finds the length of the phrase. The `msg` opcode is effectively a variable. It is used to store text and converts the stored text to ASCII data to be displayed on the screen.
 
 ## Simple Math
 
-Moving on to something simpler. It's time for some simple math. The end result of this example should be printing the results of the following math problems to the terminal. These are the problems to solve: **1+1, 2\*4, 8/2, 3-2**. Let's look at how this works on three different levels.
+Moving on to something simpler, it's time for some simple math. The end result of this example should be printing the results of the following math problems to the terminal. These are the problems to solve: **1+1, 2\*4, 8/2, 3-2**. Let's look at how this works on three different levels.
 
 ### User
 This *User* example is not that interesting. All you will see is the following:
@@ -130,7 +130,7 @@ First we start with the [shebang](#shebang). In Python all numbers must be surro
 		int d = 3-2;	# d==1
 	};
 ```
-C++ is similar to Python, except that surrounding the numbers in `int()` can be replaced with adding `int` to the start of the line. This tells the compiler that the variable will be an integer. The `int main(){` line tells the compiler that this is the main section of code, and to execute everything inside of the brackets (`{}`). The compiler is what converts C++ or C code to binary. The outputted binary is then directly run by the CPU.
+C++ is similar to Python, except that you no longer need to surround the numbers in `int()` and instead add `int` to the start of the line. This tells the compiler that the variable will be an integer. The `int main(){` line tells the compiler that this is the main section of code, and to execute everything inside of the curly brackets (`{}`). The compiler is what converts C++ or C code to binary. The outputted binary is then directly run by the CPU.
 
 
 
@@ -156,7 +156,7 @@ _start:                     ;tell linker entry point
 	sub rax, 2	; subtract 2 from rax (3-2)
 	push rax	; put the value of rax (1) into the stack
 ```
-Due to the nature of assembly, every line of code is documented. The reason for this is that assembly opcodes are sometimes quite cryptic. Documenting every line of code helps the code's author or maintainer to understand how it works. All of the results are stored in the stack. After this program executes, the stack looks like this:<br>
+Due to the nature of assembly, every line of code is documented. The reason for this is that assembly opcodes are sometimes quite cryptic. Documenting every line of code helps the code's author or maintainer to understand how it works. All of the results are stored in the stack. After this program executes, the stack will look like this:<br>
 \|	--	|<br>
 \|	1	|<br>
 \|	4	|<br>
@@ -171,14 +171,14 @@ This section takes a look at some of the basic functions and software components
 A basic computer has three main parts. The CPU, memory, and I/O.
 
 #### CPU
-The CPU (Central Processing Unit) takes in the assembly instructions from memory and does what it is instructed to do.  A computer only does what it is told to do. If there is an error, it is not the computer making a mistake. The mistake is caused by the person who wrote the code.<br><br>This is also is where the registers are physically located.
+The CPU takes in the assembly instructions from memory and does what it is instructed to do.  A computer only does what it is told to do. If there is an error, it is not the computer making a mistake. The mistake is caused by the person who wrote the code.<br><br>This is also is where the registers are physically located.
 ##### Registers
 Registers are used for temporarily storing data to be used by some operations in assembly.<br>
 In assembly, a register can be set using the following:
 ```assembly
 mov rax, 15
 ```
-The opcode `mov` stands for *move* it is used to move the contents of registers to different places or to set a register with a specific value. In this case, the value *15* is stored in the register **rax**. Registers are labled using the following diagram:
+The opcode `mov` stands for *move* and it is used to move the contents of registers to different places or to set a register with a specific value. In this case, the value *15* is stored in the register **rax**. Registers are labelled using the following diagram:
 <table border="1" cellspacing="0" cellpadding="2">
  <tbody><tr>
   <td align="center" colspan="12" bgcolor="#004080">&nbsp;<br><font size="+2" color="#FFFFFF" face="Arial">traditional general purpose registers</font><br>&nbsp;</td>
@@ -330,24 +330,24 @@ The opcode `mov` stands for *move* it is used to move the contents of registers 
 </tbody></table>
 
 #### Memory
-The Random Access Memory or RAM for short, is used to store data for short periods of time. It is based on emmc flash ics (integrated circuits). emmc is also used in USB (Universal Serial Bus) devices and SSDs (Solid State Drives)
+The Random Access Memory or RAM for short, is used to store data for short periods of time. It is based on emmc flash ICs (integrated circuits). emmc is also used in Universal Serial Bus (USB) devices and Solid State Drives (SSDs)
 
 #### I/O
-All external devices are connected through I/O (Input / Output). Some of these devices could be keyboards, mice, storage (hard drives and SSDs), graphics cards, printers, and USB devices.
+All external devices are connected through Input / Output (I/O). Some of these devices could be keyboards, mice, storage (hard drives and SSDs), graphics cards, printers, and USB devices.
 
 ## <div id="gis">Building a basic Global Information System </div>
 
 The final mini project that I want to make is a basic GIS (Global Information System). A key function that a GIS deals with is terrain mapping. In this project, I will be graphing altitude data.
 
 ### Getting started
-Due to its ease of use, I will be writing this program in [Lua](lua.org),  using the [Tic80](https://tic.computer) API. This allows easy packaged distribution (the entire program is stored in one file) of the program and an easy way to draw graphics, which will be important for displaying data.
+Due to its ease of use, I will be writing this program in [Lua](lua.org),  using the [Tic80](https://tic.computer) Application Programming Interface (API). This allows easy packaged distribution, which means the entire program is stored in one file, of the program and an easy way to draw graphics, which will be important for displaying data.
 
 ### End goal
-I am creating a system that will allow terrain altitude points to be entered. Then the points will be "compressed" in this scenario, the average of multiple points will be stored in an array to save space. I will also have a system to recreate a semi-accurate model of the original data using as little data points as possible. It is only *semi accurate* because I am using a lossy compression algorithm. Lossy means that the output data is not an exact replica of the input. The alternative to lossy compression is lossless. Lossless compression means that the data comes out exactly as it goes in.
+I am creating a system that will allow terrain altitude points to be entered. Once entered, the points will be "compressed" by storing, the average of multiple points in an array to save space. I will also have a system to recreate a semi-accurate model of the original data using as little data points as possible. It is only *semi accurate* because I am using a lossy compression algorithm. Lossy means that the output data is not an exact replica of the input. The alternative to lossy compression is lossless. Lossless compression means that the data comes out exactly as it goes in.
 
 ### Tic80
 
-Tic80 is a fantasy computer for making, playing and sharing games. It has built in tools for code, sprites (graphics), maps, sound editors and the command line which are enough tools to make a game. Games  are stored on `.cart` files that emulate game cartridges. It has a 240x136 pixels display, 16 colour palette, 256 8x8 colour sprites, and 4 channel sound.
+Tic80 is a fantasy computer for making, playing and sharing games. It has built in tools for code, sprites (graphics), maps, sound editors and the command line which are enough tools to make a game. Games  are stored in `.cart` files that emulate game cartridges. It has a 240x136 pixel display, 16 colour palette, 256 8x8 colour sprites, and 4 channel sound.
 
 
 ### Limitations
@@ -370,7 +370,7 @@ The first section of the program is the [array](#arrays). All the information to
 -- input data --
 ino={13,16,35,46,35,22,37,51,45,48,49,33,34,67,47,45,47,46,36,38,47,47,79,99}
 ```
-The second section of the program declares + initializes variables and arrays.
+The second section of the program declares and initializes both variables and arrays.
 ```lua
 -- Declare variables --
 state=2 comp={} og={}
@@ -400,7 +400,7 @@ This is the compression algorithm. The way it works is actually quite simple. Th
 
 ![IMAGE UNABLE TO DISPLAY](https://raw.githubusercontent.com/Ewpratten/HowToComputer/master/img/compression.jpeg "compression")
 
-I will try to explain the algorithm in a way that is easier to understand. Let's start with three data points. Due to the 3:1 compression, these three points need to be made into one point. The way that I handle this is as follows. Let's say that these are the three points: *12, 15, 16*. The program then finds the average of the points and stores it in an [array](#arrays). In this case, the output would be *14.333*.
+I will try to explain the algorithm in a way that is easy to understand. Let's start with three data points. Due to the 3:1 compression, these three points need to be made into one point. The way that I handle this is as follows. Let's say that these are the three points: *12, 15, 16*. The program then finds the average of the points and stores it in an [array](#arrays). In this case, the output would be *14.333*.
 <br><br>
 Now for the opposite.
 ```lua
@@ -449,7 +449,7 @@ function draw(inp)
 	end
 end
 ```
-This section is the drawing / graphing code. It has three states, *input, output, and compressed* for each state, it iterates through the given points then takes the data value and generates coordinates. The **x** coordinate is generated by finding the current position in the array then multiplying by 8. The **y** coordinate is the value stored in the array. Next, it draws the points using the Tic80 sprite function, which draws the little red dot.
+This section is the drawing / graphing code. The code has three states, *input, output, and compressed* for each state. It iterates through the given points then takes the data value and generates coordinates. The **x** coordinate is generated by finding the current position in the array then multiplying by 8. The **y** coordinate is the value stored in the array. Next, it draws the points using the Tic80 sprite function, which draws the little red dot.
 <br><br>
 The program initializes by compressing then uncompromising the data.
 
@@ -492,3 +492,6 @@ Lua: FAQ. (2017). Lua.org. Retrieved 15 December 2017, from https://www.lua.org/
 Lua 5.3 Reference Manual - contents. (2017). Lua.org. Retrieved 13 December 2017, from https://www.lua.org/manual/5.3/
 <br><br>
 Assembly Basic Syntax. (2018). www.tutorialspoint.com. Retrieved 10 January 2018, from https://www.tutorialspoint.com/assembly_programming/assembly_basic_syntax.htm
+<br><br>
+Upton, E., Duntemann, J., Roberts, R., Mamtora, T., & Everard, B. (2016). Learning computer architecture with Raspberry Pi. Indianapolis, IN: Wiley.
+
